@@ -15,8 +15,11 @@ export class TaskService {
     return this.tasks;
   }
 
-  deleteTask(index: number) {
-    this.tasks.splice(index, 1);
+  deleteTask(task: Task) {
+    const index = this.tasks.indexOf(task);
+    if (index !== -1) {
+      this.tasks.splice(index, 1);
+    }
   }
 
   editTask(index: number, updatedTask: Task) {

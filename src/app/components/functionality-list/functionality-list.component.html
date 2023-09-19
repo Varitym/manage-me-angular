@@ -1,1 +1,22 @@
-<p>functionality-list works!</p>
+<h2>Lista Funkcjonalności</h2>
+
+<form (submit)="addFunctionality()">
+  <div>
+    <label for="name">Nazwa:</label>
+    <input
+      type="text"
+      name="name"
+      [(ngModel)]="newFunctionality.name"
+      required
+    />
+  </div>
+
+  <button type="submit">Dodaj Funkcjonalność</button>
+</form>
+
+<ul>
+  <li *ngFor="let functionality of functionalities">
+    {{ functionality.name }} -
+    {{ functionality.status }}
+  </li>
+</ul>

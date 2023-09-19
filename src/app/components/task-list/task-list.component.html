@@ -1,1 +1,77 @@
-<p>task-list works!</p>
+<h2>Lista Zadań</h2>
+
+<form (submit)="addTask()">
+  <div>
+    <label for="name">Nazwa:</label>
+    <input type="text" name="name" [(ngModel)]="newTask.name" required />
+  </div>
+  <div>
+    <label for="description">Opis:</label>
+    <textarea
+      name="description"
+      [(ngModel)]="newTask.description"
+      required
+    ></textarea>
+  </div>
+  <div>
+    <label for="functionality">Funkcjonalność:</label>
+    <select name="functionality" [(ngModel)]="newTask.functionality">
+      <option [ngValue]="null">Wybierz funkcjonalność</option>
+      <option
+        *ngFor="let functionality of availableFunctionalities"
+        [ngValue]="functionality"
+      >
+        {{ functionality.name }}
+      </option>
+    </select>
+  </div>
+  <button type="submit">Dodaj Zadanie</button>
+</form>
+
+<ul>
+  <li *ngFor="let task of tasks">
+    <ng-container *ngIf="!editedTask || task !== editedTask">
+      {{ task.name }} - {{ task.description }} - {{ task.functionality?.name }}
+      <button (click)="startEditing(task)">Edytuj</button>
+      <button (click)="deleteTask(task)">Usuń</button>
+    </ng-container>
+    <ng-container *ngIf="editedTask === task">
+      <form (ngSubmit)="saveEditedTask()">
+        <div>
+          <label for="editName">Nowa Nazwa:</label>
+          <input
+            type="text"
+            name="editName"
+            [(ngModel)]="editedTask.name"
+            required
+          />
+        </div>
+        <div>
+          <label for="editDescription">Nowy Opis:</label>
+          <textarea
+            name="editDescription"
+            [(ngModel)]="editedTask.description"
+            required
+          ></textarea>
+        </div>
+        <div>
+          <label for="editFunctionality">Nowa Funkcjonalność:</label>
+          <select
+            name="editFunctionality"
+            [(ngModel)]="editedTask.functionality"
+          >
+            <option [ngValue]="null">Wybierz funkcjonalność</option>
+            <option
+              *ngFor="let functionality of availableFunctionalities"
+              [ngValue]="functionality"
+            >
+              {{ functionality.name }}
+            </option>
+          </select>
+        </div>
+        <button type="submit">Zapisz Zmiany</button>
+        <button (click)="cancelEdit()">Anuluj</button>
+      </form>
+    </ng-container>
+  </li>
+</ul>
