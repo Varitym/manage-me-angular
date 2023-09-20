@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { FunctionalityListComponent } from './components/functionality-list/functionality-list.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { TaskComponent } from './components/task/task.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     FunctionalityListComponent,
     TaskListComponent,
     NavbarComponent,
+    TaskComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],

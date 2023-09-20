@@ -12,7 +12,7 @@ import { TaskService } from 'src/app/services/task.service';
 })
 export class TaskListComponent {
   tasks: Task[] = [];
-  newTask: Task = new Task('', '', 3, null, 'todo');
+  newTask: Task = new Task(1, '', '', 1, null, 'todo');
   availableFunctionalities: Functionality[] = [];
 
   constructor(
@@ -56,6 +56,6 @@ export class TaskListComponent {
     }
 
     this.taskService.addTask(this.newTask);
-    this.newTask = new Task('', '', 3, null, 'todo');
+    this.newTask = new Task(this.tasks.length + 1, '', '', 3, null, 'todo');
   }
 }

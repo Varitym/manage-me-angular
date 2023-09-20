@@ -22,6 +22,10 @@ export class TaskService {
     }
   }
 
+  getTaskById(taskId: string): Task | undefined {
+    return this.tasks.find((task) => task.id === parseInt(taskId));
+  }
+
   editTask(index: number, updatedTask: Task) {
     this.tasks[index] = updatedTask;
   }

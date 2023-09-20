@@ -1,7 +1,9 @@
 // functionality-list.component.ts
 import { Component } from '@angular/core';
 import { Functionality } from 'src/app/models/functionality.model';
+import { Task } from 'src/app/models/task.model';
 import { FunctionalityService } from 'src/app/services/functionality.service';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-functionality-list',
@@ -9,6 +11,7 @@ import { FunctionalityService } from 'src/app/services/functionality.service';
   styleUrls: ['./functionality-list.component.css'],
 })
 export class FunctionalityListComponent {
+  tasks: Task[] = [];
   functionalities: Functionality[] = [];
   newFunctionality: Functionality = new Functionality(
     '',
@@ -19,8 +22,12 @@ export class FunctionalityListComponent {
     'todo'
   );
 
-  constructor(private functionalityService: FunctionalityService) {
+  constructor(
+    private functionalityService: FunctionalityService,
+    private taskService: TaskService
+  ) {
     this.functionalities = this.functionalityService.getFunctionalities();
+    this.tasks = this.taskService.getTasks();
   }
 
   addFunctionality() {

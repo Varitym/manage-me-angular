@@ -30,11 +30,14 @@
 
 <ul>
   <li *ngFor="let task of tasks">
-    <ng-container *ngIf="!editedTask || task !== editedTask">
-      {{ task.name }} - {{ task.description }} - {{ task.functionality?.name }}
-      <button (click)="startEditing(task)">Edytuj</button>
-      <button (click)="deleteTask(task)">Usuń</button>
-    </ng-container>
+    <a routerLink="/task" [queryParams]="{ id: task.id }">
+      <ng-container *ngIf="!editedTask || task !== editedTask">
+        {{ task.id }}. {{ task.name }} - {{ task.description }} -
+        {{ task.functionality?.name }} | {{ task.status }}
+        <button (click)="startEditing(task)">Edytuj</button>
+        <button (click)="deleteTask(task)">Usuń</button>
+      </ng-container>
+    </a>
     <ng-container *ngIf="editedTask === task">
       <form (ngSubmit)="saveEditedTask()">
         <div>

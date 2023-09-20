@@ -1,0 +1,10 @@
+<div *ngIf="task" [title]="task.name">
+  <p>
+    <span>Feature: {{ task?.functionality?.name }}</span>
+  </p>
+  <div class="info">
+    <div>{{ task.status }}</div>
+  </div>
+  <p>{{ task.description }}</p>
+</div>
+<div *ngIf="!task" title="NotFound"></div>
