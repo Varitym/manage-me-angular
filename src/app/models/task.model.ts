@@ -8,9 +8,9 @@ export class Task {
     public priority: number,
     public functionality: Functionality | null,
     public status: 'todo' | 'doing' | 'done',
+    public responsibleUser: string,
     public dateAdded?: Date,
     public estimatedTime?: number,
-    public responsibleUser?: 'devops' | 'developer',
     public startDate?: Date,
     public endDate?: Date
   ) {}

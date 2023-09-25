@@ -1,4 +1,8 @@
-<nav>
-  <a [routerLink]="'/functionalities'">Funkcjonalności</a>
-  <a [routerLink]="'/tasks'">Zadania</a>
-</nav>
+<mat-nav-list class="nav-list">
+  <a matLine [routerLink]="'/functionalities'">
+    <mat-list-item> Funkcjonalności </mat-list-item>
+  </a>
+  <a matLine [routerLink]="'/tasks'">
+    <mat-list-item> Zadania </mat-list-item>
+  </a>
+</mat-nav-list>

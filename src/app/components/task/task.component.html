@@ -1,10 +1,21 @@
-<div *ngIf="task" [title]="task.name">
-  <p>
-    <span>Feature: {{ task?.functionality?.name }}</span>
-  </p>
-  <div class="info">
-    <div>{{ task.status }}</div>
-  </div>
-  <p>{{ task.description }}</p>
-</div>
-<div *ngIf="!task" title="NotFound"></div>
+<mat-card *ngIf="task" class="mat-elevation-z2">
+  <mat-card-header>
+    <mat-card-title>{{ task.name }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      <span>Funkcjonalność: {{ task?.functionality?.name }}</span>
+    </p>
+    <div class="info">
+      <div>Status: {{ task.status }}</div>
+    </div>
+    <p>Opis: {{ task.description }}</p>
+    <p>Developer: {{ task.responsibleUser }}</p>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="!task" class="mat-elevation-z2">
+  <mat-card-content>
+    <p>NotFound</p>
+  </mat-card-content>
+</mat-card>

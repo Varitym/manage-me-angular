@@ -1,4 +1,3 @@
-// task-list.component.ts
 import { Component } from '@angular/core';
 import { Functionality } from 'src/app/models/functionality.model';
 import { Task } from 'src/app/models/task.model';
@@ -12,7 +11,7 @@ import { TaskService } from 'src/app/services/task.service';
 })
 export class TaskListComponent {
   tasks: Task[] = [];
-  newTask: Task = new Task(1, '', '', 1, null, 'todo');
+  newTask: Task = new Task(1, '', '', 1, null, 'todo', 'John Doe');
   availableFunctionalities: Functionality[] = [];
 
   constructor(
@@ -56,6 +55,14 @@ export class TaskListComponent {
     }
 
     this.taskService.addTask(this.newTask);
-    this.newTask = new Task(this.tasks.length + 1, '', '', 3, null, 'todo');
+    this.newTask = new Task(
+      this.tasks.length + 1,
+      '',
+      '',
+      3,
+      null,
+      'todo',
+      'John Doe'
+    );
   }
 }

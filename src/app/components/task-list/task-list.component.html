@@ -1,80 +1,231 @@
-<h2>Lista Zadań</h2>
-
+<h2 class="">Tasks</h2>
+<h4>Dodaj zadanie</h4>
 <form (submit)="addTask()">
-  <div>
-    <label for="name">Nazwa:</label>
-    <input type="text" name="name" [(ngModel)]="newTask.name" required />
+  <div class="form-field">
+    <mat-form-field appearance="fill">
+      <mat-label>Nazwa</mat-label>
+      <input
+        matInput
+        type="text"
+        name="name"
+        [(ngModel)]="newTask.name"
+        required
+      />
+    </mat-form-field>
   </div>
-  <div>
-    <label for="description">Opis:</label>
-    <textarea
-      name="description"
-      [(ngModel)]="newTask.description"
-      required
-    ></textarea>
+  <div class="form-field">
+    <mat-form-field appearance="fill">
+      <mat-label>Opis</mat-label>
+      <textarea
+        matInput
+        name="description"
+        [(ngModel)]="newTask.description"
+        required
+      ></textarea>
+    </mat-form-field>
   </div>
-  <div>
-    <label for="functionality">Funkcjonalność:</label>
-    <select name="functionality" [(ngModel)]="newTask.functionality">
-      <option [ngValue]="null">Wybierz funkcjonalność</option>
-      <option
-        *ngFor="let functionality of availableFunctionalities"
-        [ngValue]="functionality"
-      >
-        {{ functionality.name }}
-      </option>
-    </select>
+  <div class="form-field">
+    <mat-form-field appearance="fill">
+      <mat-label>Funkcjonalność</mat-label>
+      <mat-select name="functionality" [(ngModel)]="newTask.functionality">
+        <mat-option [value]="null">Wybierz funkcjonalność</mat-option>
+        <mat-option
+          *ngFor="let functionality of availableFunctionalities"
+          [value]="functionality"
+        >
+          {{ functionality.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-  <button type="submit">Dodaj Zadanie</button>
+  <div class="form-field">
+    <mat-form-field appearance="fill">
+      <mat-label>Stan</mat-label>
+      <mat-select name="status" [(ngModel)]="newTask.status">
+        <mat-option value="todo">To Do</mat-option>
+        <mat-option value="doing">Doing</mat-option>
+        <mat-option value="done">Done</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" type="submit">Dodaj Zadanie</button>
 </form>
 
-<ul>
-  <li *ngFor="let task of tasks">
-    <a routerLink="/task" [queryParams]="{ id: task.id }">
-      <ng-container *ngIf="!editedTask || task !== editedTask">
-        {{ task.id }}. {{ task.name }} - {{ task.description }} -
-        {{ task.functionality?.name }} | {{ task.status }}
-        <button (click)="startEditing(task)">Edytuj</button>
-        <button (click)="deleteTask(task)">Usuń</button>
-      </ng-container>
-    </a>
-    <ng-container *ngIf="editedTask === task">
-      <form (ngSubmit)="saveEditedTask()">
-        <div>
-          <label for="editName">Nowa Nazwa:</label>
-          <input
-            type="text"
-            name="editName"
-            [(ngModel)]="editedTask.name"
-            required
-          />
-        </div>
-        <div>
-          <label for="editDescription">Nowy Opis:</label>
-          <textarea
-            name="editDescription"
-            [(ngModel)]="editedTask.description"
-            required
-          ></textarea>
-        </div>
-        <div>
-          <label for="editFunctionality">Nowa Funkcjonalność:</label>
-          <select
-            name="editFunctionality"
-            [(ngModel)]="editedTask.functionality"
-          >
-            <option [ngValue]="null">Wybierz funkcjonalność</option>
-            <option
-              *ngFor="let functionality of availableFunctionalities"
-              [ngValue]="functionality"
-            >
-              {{ functionality.name }}
-            </option>
-          </select>
-        </div>
-        <button type="submit">Zapisz Zmiany</button>
-        <button (click)="cancelEdit()">Anuluj</button>
-      </form>
+<div class="kanban-board">
+  <div class="kanban-column">
+    <h3>To Do</h3>
+    <ng-container *ngFor="let task of tasks">
+      <mat-card class="kanban-card" *ngIf="task.status === 'todo'">
+        <mat-card-header>
+          <a routerLink="/task" [queryParams]="{ id: task.id }">
+            <mat-card-title>{{ task.name }}</mat-card-title>
+          </a>
+        </mat-card-header>
+        <mat-card-content>
+          {{ task.description }}
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="startEditing(task)">Edytuj</button>
+          <button mat-button (click)="deleteTask(task)">Usuń</button>
+        </mat-card-actions>
+      </mat-card>
+      <div *ngIf="editedTask === task && editedTask.status === 'todo'">
+        <form class="editForm" (ngSubmit)="saveEditedTask()">
+          <div class="form-field">
+            <mat-form-field appearance="fill">
+              <mat-label>Nowa Nazwa</mat-label>
+              <input
+                matInput
+                type="text"
+                name="editName"
+                [(ngModel)]="editedTask.name"
+                required
+              />
+            </mat-form-field>
+          </div>
+          <div class="form-field">
+            <mat-form-field appearance="fill">
+              <mat-label>Nowy Opis</mat-label>
+              <textarea
+                matInput
+                name="editDescription"
+                [(ngModel)]="editedTask.description"
+                required
+              ></textarea>
+            </mat-form-field>
+          </div>
+          <div class="form-field">
+            <mat-form-field appearance="fill">
+              <mat-label>Nowy Status</mat-label>
+              <mat-select name="editStatus" [(ngModel)]="editedTask.status">
+                <mat-option value="todo">To Do</mat-option>
+                <mat-option value="doing">Doing</mat-option>
+                <mat-option value="done">Done</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="primary" type="submit">
+            Zapisz Zmiany
+          </button>
+          <button mat-raised-button (click)="cancelEdit()">Anuluj</button>
+        </form>
+      </div>
     </ng-container>
-  </li>
-</ul>
+  </div>
+  <div class="kanban-column">
+    <h3>Doing</h3>
+    <ng-container *ngFor="let task of tasks">
+      <mat-card class="kanban-card" *ngIf="task.status === 'doing'">
+        <mat-card-header>
+          <mat-card-title>{{ task.name }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          {{ task.description }}
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="startEditing(task)">Edytuj</button>
+          <button mat-button (click)="deleteTask(task)">Usuń</button>
+        </mat-card-actions>
+      </mat-card>
+      <div *ngIf="editedTask === task && editedTask.status === 'doing'">
+        <form class="editForm" (ngSubmit)="saveEditedTask()">
+          <div class="form-field">
+            <mat-form-field appearance="fill">
+              <mat-label>Nowa Nazwa</mat-label>
+              <input
+                matInput
+                type="text"
+                name="editName"
+                [(ngModel)]="editedTask.name"
+                required
+              />
+            </mat-form-field>
+          </div>
+          <div class="form-field">
+            <mat-form-field appearance="fill">
+              <mat-label>Nowy Opis</mat-label>
+              <textarea
+                matInput
+                name="editDescription"
+                [(ngModel)]="editedTask.description"
+                required
+              ></textarea>
+            </mat-form-field>
+          </div>
+          <div class="form-field">
+            <mat-form-field appearance="fill">
+              <mat-label>Nowy Status</mat-label>
+              <mat-select name="editStatus" [(ngModel)]="editedTask.status">
+                <mat-option value="todo">To Do</mat-option>
+                <mat-option value="doing">Doing</mat-option>
+                <mat-option value="done">Done</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="primary" type="submit">
+            Zapisz Zmiany
+          </button>
+          <button mat-raised-button (click)="cancelEdit()">Anuluj</button>
+        </form>
+      </div>
+    </ng-container>
+  </div>
+  <div class="kanban-column">
+    <h3>Done</h3>
+    <ng-container *ngFor="let task of tasks">
+      <mat-card class="kanban-card" *ngIf="task.status === 'done'">
+        <mat-card-header>
+          <mat-card-title>{{ task.name }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          {{ task.description }}
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="startEditing(task)">Edytuj</button>
+          <button mat-button (click)="deleteTask(task)">Usuń</button>
+        </mat-card-actions>
+      </mat-card>
+      <div *ngIf="editedTask === task && editedTask.status === 'done'">
+        <form class="editForm" (ngSubmit)="saveEditedTask()">
+          <div class="form-field">
+            <mat-form-field appearance="fill">
+              <mat-label>Nowa Nazwa</mat-label>
+              <input
+                matInput
+                type="text"
+                name="editName"
+                [(ngModel)]="editedTask.name"
+                required
+              />
+            </mat-form-field>
+          </div>
+          <div class="form-field">
+            <mat-form-field appearance="fill">
+              <mat-label>Nowy Opis</mat-label>
+              <textarea
+                matInput
+                name="editDescription"
+                [(ngModel)]="editedTask.description"
+                required
+              ></textarea>
+            </mat-form-field>
+          </div>
+          <div class="form-field">
+            <mat-form-field appearance="fill">
+              <mat-label>Nowy Status</mat-label>
+              <mat-select name="editStatus" [(ngModel)]="editedTask.status">
+                <mat-option value="todo">To Do</mat-option>
+                <mat-option value="doing">Doing</mat-option>
+                <mat-option value="done">Done</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="primary" type="submit">
+            Zapisz Zmiany
+          </button>
+          <button mat-raised-button (click)="cancelEdit()">Anuluj</button>
+        </form>
+      </div>
+    </ng-container>
+  </div>
+</div>

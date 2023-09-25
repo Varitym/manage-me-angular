@@ -1,4 +1,3 @@
-// task.component.ts
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Task } from 'src/app/models/task.model';
@@ -12,7 +11,7 @@ import { TaskService } from 'src/app/services/task.service';
 export class TaskComponent implements OnInit {
   @Input() queryParams?: Params | null;
   taskId: string | null = null;
-  task: Task | undefined = new Task(1, '', '', 1, null, 'todo');
+  task: Task | undefined = new Task(1, '', '', 1, null, 'todo', 'John Doe');
   isEditMode: boolean = false;
 
   constructor(
@@ -33,17 +32,7 @@ export class TaskComponent implements OnInit {
     });
   }
 
-  // Metoda do przełączania trybu edycji
   toggleEditMode() {
     this.isEditMode = !this.isEditMode;
   }
-
-  // Metoda do zapisywania zmian w zadaniu
-  // saveTaskChanges() {
-  //   if (this.task) {
-  //     // Wykonaj operacje zapisu zmian w serwisie TaskService
-  //     this.taskService.updateTask(this.task);
-  //     this.isEditMode = false; // Zakończ tryb edycji
-  //   }
-  // }
 }

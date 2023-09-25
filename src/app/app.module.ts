@@ -8,6 +8,15 @@ import { FunctionalityListComponent } from './components/functionality-list/func
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TaskComponent } from './components/task/task.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -17,7 +26,20 @@ import { TaskComponent } from './components/task/task.component';
     NavbarComponent,
     TaskComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatListModule,
+    MatSelectModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

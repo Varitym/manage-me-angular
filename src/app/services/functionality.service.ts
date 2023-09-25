@@ -15,8 +15,11 @@ export class FunctionalityService {
     return this.functionalities;
   }
 
-  deleteFunctionality(index: number) {
-    this.functionalities.splice(index, 1);
+  deleteFunctionality(functionality: Functionality) {
+    const index = this.functionalities.indexOf(functionality);
+    if (index !== -1) {
+      this.functionalities.splice(index, 1);
+    }
   }
 
   editFunctionality(index: number, updatedFunctionality: Functionality) {

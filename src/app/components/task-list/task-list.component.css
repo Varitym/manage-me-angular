@@ -1,0 +1,14 @@
+.kanban-column {
+  width: 33.33%;
+  float: left;
+  box-sizing: border-box;
+  padding: 10px;
+}
+.kanban-board {
+  display: flex;
+  justify-content: space-between;
+}
+
+.editForm {
+  margin-top: 20px;
+}
